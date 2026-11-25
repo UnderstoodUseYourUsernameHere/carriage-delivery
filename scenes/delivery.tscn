@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dp52835xiykwr"]
+
+[node name="Delivery" type="Control" unique_id=1211922783]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backdrop" type="ColorRect" parent="." unique_id=50977304]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Status" type="Label" parent="." unique_id=1443920495]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
