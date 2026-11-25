@@ -1,5 +1,9 @@
 [gd_scene format=3 uid="uid://dp52835xiykwr"]
 
+[ext_resource type="Texture2D" uid="uid://rsrs547fsqgr" path="res://assets/art/cabin.png" id="1_dea0l"]
+
+[sub_resource type="Curve2D" id="Curve2D_dea0l"]
+
 [node name="Delivery" type="Control" unique_id=1211922783]
 layout_mode = 3
 anchors_preset = 15
@@ -9,12 +13,70 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Backdrop" type="ColorRect" parent="." unique_id=50977304]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Exterior" type="Node2D" parent="." unique_id=1804126941]
+
+[node name="RouteArt" type="Sprite2D" parent="Exterior" unique_id=1600425749]
+
+[node name="RoutePath" type="Path2D" parent="Exterior" unique_id=561884277]
+curve = SubResource("Curve2D_dea0l")
+
+[node name="Travel" type="PathFollow2D" parent="Exterior/RoutePath" unique_id=2069539144]
+rotates = false
+loop = false
+
+[node name="CarriageArt" type="Sprite2D" parent="Exterior/RoutePath/Travel" unique_id=2000748334]
+
+[node name="RideCamera" type="Camera2D" parent="Exterior/RoutePath/Travel" unique_id=1335383599]
+position = Vector2(0, -100)
+
+[node name="Overlay" type="CanvasLayer" parent="." unique_id=368238229]
+
+[node name="CabinView" type="Control" parent="Overlay" unique_id=193693739]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-color = Color(0.09411765, 0.12941177, 0.19215687, 1)
+
+[node name="CabinArt" type="TextureRect" parent="Overlay/CabinView" unique_id=1678286999]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_dea0l")
+expand_mode = 1
+
+[node name="TakeReins" type="Button" parent="Overlay/CabinView" unique_id=324571726]
+layout_mode = 0
+offset_left = 374.0
+offset_top = 151.0
+offset_right = 586.0
+offset_bottom = 197.0
+focus_mode = 0
+text = "Take the reins!"
+
+[node name="DriverView" type="Control" parent="Overlay" unique_id=192696889]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ReturnToCabin" type="Button" parent="Overlay/DriverView" unique_id=1595535774]
+layout_mode = 0
+offset_left = 370.0
+offset_top = 469.0
+offset_right = 590.0
+offset_bottom = 513.0
+focus_mode = 0
+text = "Return to the cabin! "
 
 [node name="Status" type="Label" parent="." unique_id=1443920495]
 layout_mode = 0
