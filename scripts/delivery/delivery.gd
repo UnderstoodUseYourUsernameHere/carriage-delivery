@@ -8,7 +8,7 @@ var _journey
 @onready var _driver_view: Control = $Overlay/DriverView
 @onready var _status: Label = $Overlay/Status
 @onready var _travel: PathFollow2D = $Exterior/RoadPath/Travel
-@onready var _carriage_art: Sprite2D = $Exterior/RoadPath/Travel/CarriageArt
+@onready var _exterior: Node2D = $Exterior
 
 func _ready() -> void:
 	var take_reins: Button = $Overlay/CabinView/TakeReins
@@ -36,7 +36,7 @@ func _set_seat(next_seat: Seat) -> void:
 	_seat = next_seat
 	_cabin_view.visible = _seat == Seat.CABIN
 	_driver_view.visible = _seat == Seat.DRIVER
-	_carriage_art.visible = _seat == Seat.DRIVER 
+	_exterior.visible = _seat == Seat.DRIVER 
 	_present()
 
 func _present() -> void:

@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cxd4oqq5x38c6"]
+
+[ext_resource type="Script" uid="uid://tap43g8kbofe" path="res://scripts/placeholders/route_blockout.gd" id="1_ptsx7"]
+[ext_resource type="Script" uid="uid://cbbfxrvr0js5b" path="res://scripts/placeholders/placeholder_sprite.gd" id="2_8n8ar"]
+
+[sub_resource type="Curve2D" id="Curve2D_dea0l"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 75, -2, 0, 0, 0, 0, 260, -47, 0, 0, 0, 0, 374, -50, 0, 0, 0, 0, 582, -42, 0, 0, 0, 0, 836, -14, 0, 0, 0, 0, 1066, -79, 0, 0, 0, 0, 1254, -74, 0, 0, 0, 0, 1408, 10, 0, 0, 0, 0, 1479, 42)
+}
+point_count = 9
+
+[node name="Exterior" type="Node2D" unique_id=681774207]
+
+[node name="RouteArt" type="Sprite2D" parent="." unique_id=1994072591]
+
+[node name="RouteBlockout" type="Node2D" parent="." unique_id=936063310 node_paths=PackedStringArray("road_path")]
+script = ExtResource("1_ptsx7")
+road_path = NodePath("../RoadPath")
+
+[node name="RoadPath" type="Path2D" parent="." unique_id=1522154473]
+curve = SubResource("Curve2D_dea0l")
+
+[node name="Travel" type="PathFollow2D" parent="RoadPath" unique_id=2098944074]
+position = Vector2(75, -2)
+rotation = -0.23860933
+loop = false
+
+[node name="CarriageArt" type="Sprite2D" parent="RoadPath/Travel" unique_id=932665095]
+script = ExtResource("2_8n8ar")
+placeholder_label = "CART"
+
+[node name="RideCamera" type="Camera2D" parent="RoadPath/Travel" unique_id=1839670378]
+position = Vector2(120, 0)
