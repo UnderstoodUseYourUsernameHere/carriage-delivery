@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://rsrs547fsqgr" path="res://assets/art/cabin.png" id="1_dea0l"]
 [ext_resource type="Script" uid="uid://tap43g8kbofe" path="res://scripts/placeholders/route_blockout.gd" id="1_ts0uv"]
 [ext_resource type="Script" uid="uid://cbbfxrvr0js5b" path="res://scripts/placeholders/placeholder_sprite.gd" id="2_aoy6w"]
+[ext_resource type="Script" uid="uid://iilfqncaw573" path="res://scripts/placeholders/placeholder_rect.gd" id="4_e4023"]
+[ext_resource type="Script" uid="uid://cm28jid5b76wc" path="res://scripts/delivery/fruit_pips.gd" id="6_gk2c0"]
 
 [sub_resource type="Curve2D" id="Curve2D_dea0l"]
 _data = {
@@ -55,6 +57,22 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="OutsideSlot" type="Control" parent="Overlay/CabinView" unique_id=1128227879]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SkeletonBody" type="TextureRect" parent="Overlay/CabinView/OutsideSlot" unique_id=1960394148]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(480, 270)
+script = ExtResource("4_e4023")
+placeholder_rect = Rect2(40, 190, 120, 240)
+placeholder_color = Color(0.84705883, 0.8235294, 0.7607843, 1)
+placeholder_label = "SKELETON "
+
 [node name="CabinArt" type="TextureRect" parent="Overlay/CabinView" unique_id=1678286999]
 layout_mode = 1
 anchors_preset = 15
@@ -65,6 +83,39 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("1_dea0l")
 expand_mode = 1
+
+[node name="FruitPips" type="Control" parent="Overlay/CabinView" unique_id=1344953621]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_gk2c0")
+slots = PackedVector2Array(420, 478, 450, 470, 480, 478, 510, 470, 540, 478)
+
+[node name="InsideSlot" type="Control" parent="Overlay/CabinView" unique_id=365415999]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SkeletonArm" type="TextureRect" parent="Overlay/CabinView/InsideSlot" unique_id=1567177685]
+visible = false
+layout_mode = 0
+offset_left = 374.0
+offset_top = 151.0
+offset_right = 414.0
+offset_bottom = 191.0
+pivot_offset = Vector2(480, 270)
+script = ExtResource("4_e4023")
+placeholder_rect = Rect2(150, 300, 230, 24)
+placeholder_color = Color(0.9372549, 0.9019608, 0.8235294, 1)
+placeholder_label = "ARM"
+
+[node name="Sword" type="TextureRect" parent="Overlay/CabinView" unique_id=1864275557]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(303, 400)
+script = ExtResource("4_e4023")
+placeholder_rect = Rect2(296, 250, 14, 150)
 
 [node name="TakeReins" type="Button" parent="Overlay/CabinView" unique_id=324571726]
 layout_mode = 0
