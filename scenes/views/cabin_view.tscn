@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b5dj01dt37j7" path="res://scripts/cabin/cabin_windows.gd" id="1_vdcu5"]
 [ext_resource type="Texture2D" uid="uid://rsrs547fsqgr" path="res://assets/art/cabin.png" id="2_vdcu5"]
 [ext_resource type="Script" uid="uid://cm28jid5b76wc" path="res://scripts/delivery/fruit_pips.gd" id="3_dakot"]
+[ext_resource type="Script" uid="uid://tgt8xro6ncl" path="res://scripts/cabin/cabin_wings.gd" id="4_dakot"]
 
 [node name="CabinView" type="Control" unique_id=1539775977]
 layout_mode = 3
@@ -51,6 +52,21 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("2_vdcu5")
 expand_mode = 1
+stretch_mode = 5
+
+[node name="CabinWings" type="Control" parent="." unique_id=1035943249 node_paths=PackedStringArray("cabin_art")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_dakot")
+cabin_art = NodePath("../CabinArt")
+sample_inset_px = 75
+sample_width_px = 5
+post_width = 117.935
+edge_shade = 0.453
 
 [node name="FruitPips" type="Control" parent="." unique_id=344731508]
 anchors_preset = 0
