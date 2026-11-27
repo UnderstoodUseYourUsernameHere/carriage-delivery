@@ -13,9 +13,9 @@ extends ColorRect
 		queue_redraw()
 
 const TREE_SPACING_PX := 150.0
-const GROUND := Color("#2b373c")
-const FAR_TREE := Color("43515b")
-const NEAR_TREE := Color("#17252b")
+const GROUND := Color("#2f4a33")
+const FAR_TREE := Color("29422e")
+const NEAR_TREE := Color("#1d3322")
 
 var _distance_px := 0.0
 
@@ -51,10 +51,7 @@ func _draw_roadside(eye: Vector2, side: float, stagger: float) -> void:
 		
 		var tint := FAR_TREE.lerp(NEAR_TREE, k)
 		tint.a = alpha
-		var base := foot - Vector2(0.0, h * 0.16)
-		draw_line(foot, base, tint, maxf(1.0, h * 0.07))
-		draw_colored_polygon(PackedVector2Array([
-			foot - Vector2(0.0, h),
-			base + Vector2(h * 0.20, 0.0),
-			base - Vector2(h * 0.20, 0.0),
-		]), tint)
+		var crown := foot - Vector2(0.0, h * 0.53)
+		draw_line(foot, crown, tint, maxf(1.0, h * 0.055), true)
+		draw_circle(crown, h * 0.24, tint)
+		draw_circle(crown + Vector2(-side * h * 0.13, h * 0.05), h * 0.15, tint)
