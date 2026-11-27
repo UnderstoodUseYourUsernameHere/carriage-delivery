@@ -106,7 +106,7 @@ func _timber(points: PackedVector2Array, width_px: float) -> void:
 	var shadow := points.duplicate()
 	var lip := points.duplicate()
 	for i in range(points.size()):
-		shadow[i] + Vector2(1.5, 2.0)
+		shadow[i] += Vector2(1.5, 2.0)
 		lip[i] += Vector2(0.0, -width_px * 0.3)
 	draw_polyline(shadow, DARK, width_px + 2.0, true)
 	draw_polyline(points, WOOD, width_px, true)

@@ -53,6 +53,7 @@ mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 script = ExtResource("3_7epd6")
+piece = 1
 
 [node name="CabinWings" type="Control" parent="." unique_id=1035943249 node_paths=PackedStringArray("cabin_art")]
 visible = false
