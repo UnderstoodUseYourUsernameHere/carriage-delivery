@@ -8,6 +8,7 @@ var _journey
 @onready var _driver_view: Control = $Overlay/DriverView
 @onready var _status: Label = $Overlay/Status
 @onready var _travel: PathFollow2D = $Exterior/RoadPath/Travel
+@onready var _windows: CabinWindows = $Overlay/CabinView/WindowBackdrop
 @onready var _exterior: Node2D = $Exterior
 
 func _ready() -> void:
@@ -41,6 +42,7 @@ func _set_seat(next_seat: Seat) -> void:
 
 func _present() -> void:
 	_travel.progress_ratio = _journey.progress_ratio()
+	_windows.set_road_distance(_travel.progress)
 	_refresh_hud()
 
 func _refresh_hud() -> void:
