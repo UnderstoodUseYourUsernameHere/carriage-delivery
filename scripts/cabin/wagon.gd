@@ -80,18 +80,20 @@ func _draw_carriage() -> void:
 	_pin(Vector2(332, 286))
 	_pin(Vector2(628, 286))
 	
-	draw_line(Vector2(624, 309), Vector2(624, 327), DARK, 5.0, true)
+	draw_line(Vector2(336, 309), Vector2(336, 327), DARK, 5.0, true)
 	draw_colored_polygon(PackedVector2Array([
-		Vector2(601, 324), Vector2(635, 316), Vector2(641, 330),
-		Vector2(608, 337),
+		Vector2(313, 324), Vector2(347, 316), Vector2(353, 330),
+		Vector2(320, 337),
 	]), PAPER)
 	draw_colored_polygon(PackedVector2Array([
-		Vector2(596, 328), Vector2(648, 323), Vector2(646, 350),
-		Vector2(609, 357), Vector2(598, 347),
+		Vector2(308, 328), Vector2(360, 323), Vector2(358, 350),
+		Vector2(321, 357), Vector2(310, 347),
 	]), DARK)
-	var clasp := Vector2(625, 337)
+	var clasp := Vector2(337, 337)
 	draw_circle(clasp, 6.5, IRON)
 	draw_line(clasp + Vector2(-2, 3), clasp + Vector2(2, -3), PAPER, 1.5, true)
+	
+	_draw_sword_panel()
 	
 	draw_colored_polygon(PackedVector2Array([
 		Vector2(383, 473), Vector2(577, 473), Vector2(556, 511),
@@ -101,6 +103,21 @@ func _draw_carriage() -> void:
 		Vector2(386, 483), Vector2(411, 494),
 		Vector2(549, 494), Vector2(574, 483),
 	]), 5.0)
+
+func _draw_sword_panel() -> void:
+	draw_colored_polygon(PackedVector2Array([
+		Vector2(748, 354), Vector2(926, 427),
+		Vector2(926, 492), Vector2(748, 410),
+	]), DARK)
+	draw_colored_polygon(PackedVector2Array([
+		Vector2(756, 361), Vector2(917, 429),
+		Vector2(917, 481), Vector2(756, 405),
+	]), WOOD)
+	draw_line(Vector2(756, 361), Vector2(917, 429), TRIM, 2.0, true)
+	draw_line(Vector2(756, 405), Vector2(917, 481), DARK, 2.0, true)
+	_pin(Vector2(831, 414))
+	_pin(Vector2(875, 433))
+	
 
 func _timber(points: PackedVector2Array, width_px: float) -> void:
 	var shadow := points.duplicate()

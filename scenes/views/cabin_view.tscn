@@ -53,7 +53,6 @@ mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 script = ExtResource("3_7epd6")
-piece = 1
 
 [node name="CabinWings" type="Control" parent="." unique_id=1035943249 node_paths=PackedStringArray("cabin_art")]
 visible = false
@@ -96,10 +95,17 @@ placeholder_color = Color(0.9372549, 0.9019608, 0.8235294, 1)
 placeholder_label = "ARM"
 
 [node name="Sword" type="TextureRect" parent="." unique_id=965781021]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-pivot_offset = Vector2(303, 400)
+layout_mode = 1
+offset_left = 888.0
+offset_top = 349.0
+offset_right = 912.0
+offset_bottom = 461.0
+rotation = -1.1868238
+pivot_offset = Vector2(12, 96)
+mouse_filter = 2
+stretch_mode = 5
+script = ExtResource("3_7epd6")
+piece = 1
 
 [node name="TakeReins" type="Button" parent="." unique_id=590671901]
 layout_mode = 0
