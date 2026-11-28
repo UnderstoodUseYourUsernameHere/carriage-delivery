@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://cngapvdvltuoy" path="res://scripts/cabin/wagon.gd" id="3_7epd6"]
 [ext_resource type="Script" uid="uid://cm28jid5b76wc" path="res://scripts/delivery/fruit_pips.gd" id="3_dakot"]
 [ext_resource type="Script" uid="uid://tgt8xro6ncl" path="res://scripts/cabin/cabin_wings.gd" id="4_dakot"]
+[ext_resource type="Script" uid="uid://b8d6s2i7i80sb" path="res://scripts/cabin/compass.gd" id="5_7epd6"]
 
 [node name="CabinView" type="Control" unique_id=1539775977]
 layout_mode = 3
@@ -68,6 +69,16 @@ sample_inset_px = 75
 sample_width_px = 5
 post_width = 117.935
 edge_shade = 0.453
+
+[node name="Compass" type="Control" parent="." unique_id=1223037658]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 315.0
+offset_top = 315.0
+offset_right = 359.0
+offset_bottom = 359.0
+mouse_filter = 2
+script = ExtResource("5_7epd6")
 
 [node name="FruitPips" type="Control" parent="." unique_id=344731508]
 anchors_preset = 0

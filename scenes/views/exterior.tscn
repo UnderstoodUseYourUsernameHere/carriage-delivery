@@ -4,12 +4,26 @@
 [ext_resource type="Script" uid="uid://cbbfxrvr0js5b" path="res://scripts/placeholders/placeholder_sprite.gd" id="2_8n8ar"]
 [ext_resource type="Script" uid="uid://n6m1uneqmml8" path="res://scripts/placeholders/forest_blockout.gd" id="2_u5owk"]
 [ext_resource type="Script" uid="uid://ceyr60s1faj7p" path="res://scripts/map/fog_of_war.gd" id="3_svrtn"]
+[ext_resource type="Script" uid="uid://yqv6sbdl0c54" path="res://scripts/map/landmark.gd" id="3_u5owk"]
 
 [node name="Exterior" type="Node2D" unique_id=681774207]
 script = ExtResource("1_x55si")
 
 [node name="Forest" type="Node2D" parent="." unique_id=1047954047]
 script = ExtResource("2_u5owk")
+
+[node name="Landmarks" type="Node2D" parent="." unique_id=853534546]
+
+[node name="Post" type="Node2D" parent="Landmarks" unique_id=173738456]
+script = ExtResource("3_u5owk")
+
+[node name="Checkpoint" type="Node2D" parent="Landmarks" unique_id=269272526]
+script = ExtResource("3_u5owk")
+kind = 1
+
+[node name="Cidery" type="Node2D" parent="Landmarks" unique_id=885293233]
+script = ExtResource("3_u5owk")
+kind = 2
 
 [node name="FogOfWar" type="Node2D" parent="." unique_id=1146202799]
 script = ExtResource("3_svrtn")

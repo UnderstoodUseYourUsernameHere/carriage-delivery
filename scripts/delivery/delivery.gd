@@ -10,6 +10,8 @@ var _journey: RoamJourney
 
 @onready var _windows: CabinWindows = $Overlay/CabinView/WindowBackdrop
 @onready var _wagon_skin: LanternWagon = $Overlay/CabinView/CabinArt
+@onready var _fruit_pips: FruitPips = $Overlay/CabinView/FruitPips
+@onready var _compass: CabinCompass = $Overlay/CabinView/Compass
 @onready var _map: RoamMap = $Exterior
 
 func _ready() -> void:
@@ -53,6 +55,8 @@ func _present() -> void:
 	_windows.set_road_distance(_journey.odometer)
 	_windows.set_heading(_journey.heading)
 	_wagon_skin.set_road_distance(_journey.odometer)
+	_fruit_pips.count = _journey.fruit
+	_compass.set_bearing(_journey.bearing_to_target())
 	_refresh_hud()
 
 func _refresh_hud() -> void:
