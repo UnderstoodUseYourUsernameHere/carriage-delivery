@@ -4,7 +4,7 @@ enum Seat { CABIN, DRIVER }
 var _seat: Seat = Seat.CABIN
 var _journey: RoamJourney
 
-@onready var _cabin_view: Control = $Overlay/CabinView
+@onready var _cabin_view: CabinCombat = $Overlay/CabinView
 @onready var _driver_view: Control = $Overlay/DriverView
 @onready var _status: Label = $Overlay/Status
 
@@ -13,6 +13,7 @@ var _journey: RoamJourney
 @onready var _fruit_pips: FruitPips = $Overlay/CabinView/FruitPips
 @onready var _compass: CabinCompass = $Overlay/CabinView/Compass
 @onready var _map: RoamMap = $Exterior
+@onready var _threat_warning: ThreatWarning = $Overlay/DriverView/ThreatWarning
 
 func _ready() -> void:
 	var take_reins: Button = $Overlay/CabinView/TakeReins
@@ -57,20 +58,31 @@ func _present() -> void:
 	_wagon_skin.set_road_distance(_journey.odometer)
 	_fruit_pips.count = _journey.fruit
 	_compass.set_bearing(_journey.bearing_to_target())
+	_cabin_view.present(_journey)
+	_threat_warning.present(_journey.active_threat)
 	_refresh_hud()
 
 func _refresh_hud() -> void:
 	var seat_text := "MAP - A/D to steer" if _seat == Seat.DRIVER else "CABIN"
+	var stage_text := _journey.stage_text()
 	
-	_status.text = "%s  |  %s  |  Fruit %d/5  |  Traveled %.0f  |  Target %.0f away  |  Seed %d  |  R: restart" % [
-		seat_text,
-		_journey.stage_text(),
-		_journey.fruit,
-		_journey.odometer,
-		_journey.distance_to_target(),
-		_journey.run_seed
-	] 
+	_status.text = seat_text \
+	+ "  |  " + stage_text \
+	+ "  |  Fruit " + str(_journey.fruit) + "/5" \
+	+ "  |  Target " + str(int(_journey.distance_to_target())) + " away" \
+	+ "  |  R: restart!"
+	
+	if _journey.active_threat != null:
+		_status.text += (
+			"\nSkeleton "
+			+ _journey.active_threat.flank_text()
+			+ ": "
+			+ _journey.active_threat.phase_text()
+		)
 	
 	if _journey.has_arrived():
-		_status.text += "\nDelivered %d dragon fruit to Ratticus!" % _journey.fruit
- 	
+		_status.text += (
+			"\nDelivered "
+			+ str(_journey.fruit)
+			+ " dragon fruit to Ratticus!"
+		)

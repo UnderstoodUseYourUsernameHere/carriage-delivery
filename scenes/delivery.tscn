@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://t5i1b31fw2mr" path="res://scripts/delivery/delivery.gd" id="1_aoy6w"]
 [ext_resource type="PackedScene" uid="uid://cxd4oqq5x38c6" path="res://scenes/views/exterior.tscn" id="2_ts0uv"]
 [ext_resource type="PackedScene" uid="uid://q20dej7avu23" path="res://scenes/views/cabin_view.tscn" id="3_aoy6w"]
+[ext_resource type="Script" uid="uid://csuacb8dc2mhf" path="res://scripts/enemies/threat_warning.gd" id="4_aoy6w"]
 
 [node name="Delivery" type="Control" unique_id=1211922783]
 layout_mode = 3
@@ -28,6 +29,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="ThreatWarning" type="Control" parent="Overlay/DriverView" unique_id=62051931]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_aoy6w")
 
 [node name="ReturnToCabin" type="Button" parent="Overlay/DriverView" unique_id=1595535774]
 layout_mode = 0

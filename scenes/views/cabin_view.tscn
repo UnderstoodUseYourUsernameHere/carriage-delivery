@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://q20dej7avu23"]
 
+[ext_resource type="Script" uid="uid://dqqmrogildkhf" path="res://scripts/cabin/cabin_combat.gd" id="1_hqs1i"]
 [ext_resource type="Script" uid="uid://iilfqncaw573" path="res://scripts/placeholders/placeholder_rect.gd" id="1_iee7j"]
 [ext_resource type="Script" uid="uid://b5dj01dt37j7" path="res://scripts/cabin/cabin_windows.gd" id="1_vdcu5"]
 [ext_resource type="Script" uid="uid://cngapvdvltuoy" path="res://scripts/cabin/wagon.gd" id="3_7epd6"]
@@ -15,6 +16,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("1_hqs1i")
 
 [node name="WindowBackdrop" type="ColorRect" parent="." unique_id=356660917]
 layout_mode = 1
@@ -28,16 +30,24 @@ color = Color(0.18431373, 0.2901961, 0.2, 1)
 script = ExtResource("1_vdcu5")
 
 [node name="OutsideSlot" type="Control" parent="." unique_id=1015463299]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="SkeletonBody" type="TextureRect" parent="OutsideSlot" unique_id=1377003618]
 visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 pivot_offset = Vector2(480, 270)
+mouse_filter = 2
 script = ExtResource("1_iee7j")
 placeholder_rect = Rect2(40, 190, 120, 240)
 placeholder_color = Color(0.84705883, 0.8235294, 0.7607843, 1)
@@ -88,18 +98,24 @@ script = ExtResource("3_dakot")
 slots = PackedVector2Array(420, 478, 450, 470, 480, 478, 510, 470, 540, 478)
 
 [node name="InsideSlot" type="Control" parent="." unique_id=1187692113]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="SkeletonArm" type="TextureRect" parent="InsideSlot" unique_id=816765701]
 visible = false
-layout_mode = 0
-offset_left = 374.0
-offset_top = 151.0
-offset_right = 414.0
-offset_bottom = 191.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 pivot_offset = Vector2(480, 270)
+mouse_filter = 2
 script = ExtResource("1_iee7j")
 placeholder_rect = Rect2(150, 300, 230, 24)
 placeholder_color = Color(0.9372549, 0.9019608, 0.8235294, 1)
