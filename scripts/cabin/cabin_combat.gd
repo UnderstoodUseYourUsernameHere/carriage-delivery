@@ -8,8 +8,17 @@ const STOLEN_DROP := 120.0
 
 @onready var _body: Control = $OutsideSlot/SkeletonBody
 @onready var _arm: Control = $InsideSlot/SkeletonArm
+@onready var _sword: Control = $Sword
+
+var _sword_rest_position := Vector2.ZERO
+var _sword_rest_rotation := 0.0
+
+func _ready() -> void:
+	_sword_rest_position = _sword.position
+	_sword_rest_rotation = _sword.rotation
 
 func present(journey: RoamJourney) -> void:
+	_present_sword(journey)
 	var threat := journey.active_threat
 	
 	_body.visible = threat != null
@@ -64,3 +73,24 @@ func present(journey: RoamJourney) -> void:
 			side * ARM_DISTANCE * (1.0 - reach_t),
 			0.0
 		)
+
+func _present_sword(journey: RoamJourney) -> void:
+	const SWING_SECONDS := 0.24
+	const SWING_ANGLE := 82.0
+	const SWING_REACH := 185.0
+	
+	var time := clampf(
+		journey.swing_age() / SWING_SECONDS,
+		0.0,
+		1.0
+	)
+	var arc := sin(time * PI)
+	var direction := float(journey.last_swing_flank)
+	_sword.rotation = (
+		_sword_rest_rotation
+		+ deg_to_rad(SWING_ANGLE) * direction * arc
+	)
+	_sword.position = (
+		_sword_rest_position
+		+ Vector2(direction * SWING_REACH, -55.0) * arc
+	)

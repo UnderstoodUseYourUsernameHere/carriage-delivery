@@ -36,6 +36,23 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"restart_delivery"):
 		_restart()
 		get_viewport().set_input_as_handled()
+		return
+	
+	if _seat != Seat.CABIN:
+		return
+	
+	var accepted := false
+	
+	if event.is_action_pressed(&"swing_left"):
+		accepted = _journey.try_swing(SkeletonThreat.Flank.LEFT)
+	elif event.is_action_pressed(&"swing_right"):
+		accepted = _journey.try_swing(SkeletonThreat.Flank.RIGHT)
+	
+	if not accepted:
+		return
+	
+	_present()
+	get_viewport().set_input_as_handled() 
 
 func _restart():
 	_journey = RoamJourney.new()
@@ -71,6 +88,17 @@ func _refresh_hud() -> void:
 	+ "  |  Fruit " + str(_journey.fruit) + "/5" \
 	+ "  |  Target " + str(int(_journey.distance_to_target())) + " away" \
 	+ "  |  R: restart!"
+	
+	if _seat == Seat.CABIN:
+		var sword_text := "ready"
+		
+		if _journey.swing_recovery > 0.0:
+			sword_text = "recovering"
+		
+		if _journey.swing_age() < 0.4:
+			sword_text += " - HIT" if _journey.last_swing_hit else " - miss"
+		
+		_status.text += "\nQ/E swing left/right  |  Sword: " + sword_text
 	
 	if _journey.active_threat != null:
 		_status.text += (

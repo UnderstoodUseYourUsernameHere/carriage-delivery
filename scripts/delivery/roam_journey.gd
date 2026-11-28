@@ -16,6 +16,7 @@ const REVEAL_RADIUS := 320.0
 const FIRST_ATTACK_DELAY := 4.0
 const ATTACK_INTERVAL_MIN := 7.0
 const ATTACK_INTERVAL_MAX := 11.0
+const SWING_RECOVERY := 1.5
 
 var run_seed := 0
 var elapsed := 0.0
@@ -28,6 +29,9 @@ var waypoints: Array[Vector2] = []
 var revealed_cells: Dictionary = {}
 var active_threat: SkeletonThreat
 var next_attack_at := INF
+var swing_recovery := 0.0
+var last_swing_flank := SkeletonThreat.Flank.LEFT
+var last_swing_hit := false
 var _threat_rng := RandomNumberGenerator.new()
 
 func _init(seed_value: int = -1) -> void:
@@ -46,6 +50,7 @@ func step(delta: float, steer: float) -> void:
 		return
 	
 	elapsed += delta
+	swing_recovery = move_toward(swing_recovery, 0.0, delta)
 	steer = clampf(steer, -1.0, 1.0)
 	heading = wrapf(heading + steer * TURN_RATE * delta, -PI, PI)
 	
@@ -181,3 +186,23 @@ func _schedule_next_attack() -> void:
 		ATTACK_INTERVAL_MIN,
 		ATTACK_INTERVAL_MAX
 	)
+
+func swing_age() -> float:
+	return SWING_RECOVERY - swing_recovery
+
+func try_swing(flank: int) -> bool:
+	if has_arrived() or swing_recovery > 0.0:
+		return false
+	
+	last_swing_flank = flank
+	last_swing_hit = false
+	swing_recovery = SWING_RECOVERY
+	
+	if active_threat == null:
+		return true
+	
+	if active_threat.flank != flank:
+		return true
+	
+	last_swing_hit = active_threat.repel(elapsed)
+	return true
