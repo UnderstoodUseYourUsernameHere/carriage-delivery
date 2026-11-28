@@ -13,6 +13,9 @@ const ARRIVAL_RADIUS := 80.0
 const POST_FRUIT := 5
 const FOG_CELL := 128.0
 const REVEAL_RADIUS := 320.0
+const FIRST_ATTACK_DELAY := 4.0
+const ATTACK_INTERVAL_MIN := 7.0
+const ATTACK_INTERVAL_MAX := 11.0
 
 var run_seed := 0
 var elapsed := 0.0
@@ -23,6 +26,9 @@ var fruit := 0
 var stage : Stage = Stage.TO_POST
 var waypoints: Array[Vector2] = []
 var revealed_cells: Dictionary = {}
+var active_threat: SkeletonThreat
+var next_attack_at := INF
+var _threat_rng := RandomNumberGenerator.new()
 
 func _init(seed_value: int = -1) -> void:
 	var rng := RandomNumberGenerator.new()
@@ -31,6 +37,7 @@ func _init(seed_value: int = -1) -> void:
 	else:
 		rng.seed = seed_value
 	run_seed = rng.seed
+	_threat_rng.seed = run_seed + 9001
 	_generate_waypoints(rng)
 	_reveal_around_position()
 
@@ -52,6 +59,7 @@ func step(delta: float, steer: float) -> void:
 	if distance_moved > 0.0:
 		_reveal_around_position()
 		_check_current_objective()
+	_update_threat()
 
 func has_arrived() -> bool:
 	return stage == Stage.DONE
@@ -114,10 +122,13 @@ func _check_current_objective() -> void:
 		Stage.TO_POST:
 			fruit = POST_FRUIT
 			stage = Stage.TO_CHECKPOINT
+			next_attack_at = elapsed + FIRST_ATTACK_DELAY
 		Stage.TO_CHECKPOINT:
 			stage = Stage.TO_CIDERY
 		Stage.TO_CIDERY:
 			stage = Stage.DONE
+			active_threat = null
+			next_attack_at = INF
 
 func _reveal_around_position() -> void:
 	var center := Vector2i(floori(position.x / FOG_CELL), floori(position.y / FOG_CELL))
@@ -129,3 +140,44 @@ func _reveal_around_position() -> void:
 			var cell_center := (Vector2(cell) + Vector2(0.5, 0.5)) * FOG_CELL
 			if cell_center.distance_to(position) <= REVEAL_RADIUS + FOG_CELL * 0.7:
 				revealed_cells[cell] = true
+
+func _update_threat() -> void:
+	if has_arrived():
+		active_threat = null
+		return
+	
+	if active_threat != null:
+		if active_threat.update(elapsed):
+			fruit = maxi(fruit - 1, 0)
+		
+		if not active_threat.is_visible_at(elapsed):
+			active_threat = null
+			_schedule_next_attack()
+		
+		return
+	
+	if fruit <= 0:
+		return
+	
+	if stage not in [Stage.TO_CHECKPOINT, Stage.TO_CIDERY]:
+		return
+	
+	if elapsed < next_attack_at:
+		return
+	
+	var flank := SkeletonThreat.Flank.LEFT
+	if _threat_rng.randi_range(0, 1) == 1:
+		flank = SkeletonThreat.Flank.RIGHT
+	
+	active_threat = SkeletonThreat.new(flank, elapsed)
+	next_attack_at = INF
+
+func _schedule_next_attack() -> void:
+	if fruit <= 0 or has_arrived():
+		next_attack_at = INF
+		return
+	
+	next_attack_at = elapsed + _threat_rng.randf_range(
+		ATTACK_INTERVAL_MIN,
+		ATTACK_INTERVAL_MAX
+	)
