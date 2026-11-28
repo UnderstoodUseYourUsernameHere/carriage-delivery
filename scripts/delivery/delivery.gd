@@ -51,6 +51,7 @@ func _set_seat(next_seat: Seat) -> void:
 func _present() -> void:
 	_map.present(_journey)
 	_windows.set_road_distance(_journey.odometer)
+	_windows.set_heading(_journey.heading)
 	_wagon_skin.set_road_distance(_journey.odometer)
 	_refresh_hud()
 

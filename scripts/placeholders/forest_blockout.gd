@@ -3,7 +3,7 @@ class_name ForestBlockout
 extends Node2D
 
 const GROUND := Color("#2f4a33")
-const TREE_DARK := Color("#1d332")
+const TREE_DARK := Color("#1d3322")
 const TREE_LIGHT := Color("#29422e")
 const STONE := Color("#a39a88")
 const BORDER := Color("#1a2a1e")

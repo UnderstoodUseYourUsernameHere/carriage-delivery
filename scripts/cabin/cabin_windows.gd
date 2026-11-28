@@ -18,9 +18,16 @@ const FAR_TREE := Color("29422e")
 const NEAR_TREE := Color("#1d3322")
 
 var _distance_px := 0.0
+var _heading := 0.0
 
 func set_road_distance(px: float) -> void:
 	_distance_px = px
+	queue_redraw()
+
+func set_heading(radians: float) -> void:
+	if is_equal_approx(radians, _heading):
+		return
+	_heading = radians
 	queue_redraw()
 
 func _draw() -> void:
@@ -39,7 +46,7 @@ func _draw_roadside(eye: Vector2, side: float, stagger: float) -> void:
 	for row in range(7, -1, -1):
 		var k := 1.0 / (float(row) + 2.0 - phase)
 		var foot := eye + Vector2(side * size.x * 0.85, size.y * 0.50) * k
-		var tree_id := floorf(travel) + float(row) + stagger
+		var tree_id := floorf(travel) + float(row) + stagger + _heading * 3.7
 		var h := size.y * k * (1.0 + 0.12 * sin(tree_id * 2.4))
 		var alpha := phase if row == 7 else 1.0
 		
